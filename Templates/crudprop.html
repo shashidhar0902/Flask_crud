@@ -5,10 +5,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to
         fit=no" />
+        <!-- include a java script file in static folder flask python-->
+         <script src="{{ url_for('static', filename='jsscript.js')}}"></script>
+
+
 </head>
 
 <body>
-
+    <!-- button to show list of all properties in the variable properties-->
+     <button onclick="showProperties()">Show Properties</button>
     <h2>Insert a property</h2>
     <form action="/addproperty" method="post">
         <label for="id">ID:</label><br>
@@ -23,6 +28,8 @@
         <input type="text" id="id" name="id" value=""><br>
         <input type="submit" value="Delete">
     </form>
+    <p id="showprop">
+    </p>
 </body>
 
 </html>

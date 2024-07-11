@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, redirect, render_template, request
+from flask import Flask, jsonify, make_response, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -7,16 +7,15 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/login')
-def login():
-    return render_template('login.html')
 #/login
-@app.route('/logincheck', methods= ['POST','GET'])
-def login_check():
+@app.route('/login', methods= ['POST','GET'])
+def login():
     #if request method is post validate login credentials
     if request.method == 'POST':
         if request.form['username'] == 'admin' and request.form['password'] == 'admin':
-            return redirect('/crudprop')
+            resp = make_response(redirect('/crudprop'))
+            resp.set_cookie('user','admin')
+            return resp
     else:
         return render_template('login.html')
 
