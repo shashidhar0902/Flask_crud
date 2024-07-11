@@ -36,6 +36,16 @@ def login():
             return redirect(url_for("homepage"))
         return redirect(url_for('loginpage'))
 
+""" upload the file here in this route and saving
+ it and redirecting to a page that th
+file is uploaded successfully"""
+@app.route('/uploader', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+      f = request.files['file'] 
+      f.save(f.filename)
+      return 'file uploaded successfully'
+
 #logout
 @app.route('/logout')
 def logout():

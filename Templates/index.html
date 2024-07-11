@@ -13,5 +13,11 @@
          
         <!-- login button not a form that redirects to login.html page-->
          <a href='/login'>Login</a>
+         
+         <!--Added a form to upload file and submit it using enctype-->
+         <form action="/uploader" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <input type="submit" value="Upload" />
+        </form>
     </body>
 </html>
