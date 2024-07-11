@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to
+        fit=no" />
+</head>
+
+<body>
+
+    <h2>Insert a property</h2>
+    <form action="/addproperty" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value=""><br>
+        <label for="address">Address:</label><br>
+        <input type="text" id="address" name="address" value=""><br>
+        <label for="price">Price:</label><br>
+        <input type="submit" value="Insert">
+    </form>
+    <form action="/deleteproperty" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value=""><br>
+        <input type="submit" value="Delete">
+    </form>
+</body>
+
+</html>

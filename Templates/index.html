@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to
+        fit=no" />
+        <!-- include a file inside static folder javascript based on flask python-->
+         <script src="{{ url_for('static', filename='jsscript.js') }}"></script>
+    </head>
+    <body>
+        <!-- properties webpage that describes the user that he can insert, delete properties and provides login button-->
+         <h1>Properties</h1>
+         
+        <!-- login button not a form that redirects to login.html page-->
+         <a href='/login'>Login</a>
+    </body>
+</html>
