@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request
+from flask import Flask, jsonify, redirect, render_template, request
 
 app = Flask(__name__)
 
@@ -29,8 +29,13 @@ prop_list = []
 @app.route('/addproperty', methods= ['POST','GET'])
 def addprop():
     if request.method == 'POST':
-        prop = request.form['name']
-        prop_list.append(prop)
+        prop_id = request.form['id']
+        prop_address = request.form['address']
+        data = {
+            'id': prop_id,
+            'address': prop_address
+        }
+        prop_list.append(data)
         print(prop_list)
         return redirect('/crudprop')
     else:
@@ -40,9 +45,10 @@ def addprop():
 @app.route('/deleteproperty', methods = ['POST'])
 def deleteprop():
     if request.method == 'POST':
-        prop = request.form['name']
-    if prop in prop_list:
-        prop_list.remove(prop)
+        prop_id = request.form['id']
+    for item in prop_list:
+        if item['id'] == prop_id:
+            prop_list.remove(item)
     print(prop_list)
     return redirect('/crudprop')
 
