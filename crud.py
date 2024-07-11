@@ -1,23 +1,41 @@
-from flask import Flask, jsonify, make_response, redirect, render_template, request, url_for
+from flask import Flask, jsonify, make_response, redirect, render_template, request, session, url_for
 
 app = Flask(__name__)
+
+app.secret_key = "hellosecret"
 
 #index routing to render template index.html 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+@app.route('/loginpage')
+def loginpage():
+    return render_template('login.html')
+
 #/login
 @app.route('/login', methods= ['POST','GET'])
 def login():
     #if request method is post validate login credentials
     if request.method == 'POST':
-        if request.form['username'] == 'admin' and request.form['password'] == 'admin':
-            resp = make_response(redirect('/crudprop'))
-            resp.set_cookie('user','admin')
-            return resp
+        user = request.form['username']
+        password = request.form['password']
+        if user == 'admin' and password == 'admin':
+            session["admin"] = user
+            # resp = make_response(redirect('/crudprop'))
+            # resp.set_cookie('user',user)
+            # return resp
+            return redirect(url_for("homepage"))
     else:
-        return render_template('login.html')
+        if "admin" in session:
+            return redirect(url_for("homepage"))
+        return redirect(url_for('loginpage'))
+
+#logout
+@app.route('/logout')
+def logout():
+    session.pop("admin", None)
+    return redirect(url_for('index'))
 
 #/homepage
 @app.route('/crudprop')
