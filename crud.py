@@ -1,14 +1,18 @@
 from flask import Flask, jsonify, make_response, redirect, render_template, request, session, url_for
+from datetime import timedelta
+import secrets
 
 app = Flask(__name__)
 
-app.secret_key = "hellosecret"
+app.secret_key = secrets.token_hex()
+app.permanent_session_lifetime = timedelta(seconds=5)
 
 #index routing to render template index.html 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+#index routing to render template login.html 
 @app.route('/loginpage')
 def loginpage():
     return render_template('login.html')
@@ -22,6 +26,7 @@ def login():
         password = request.form['password']
         if user == 'admin' and password == 'admin':
             session["admin"] = user
+            session.permanent = True
             # resp = make_response(redirect('/crudprop'))
             # resp.set_cookie('user',user)
             # return resp
@@ -40,7 +45,10 @@ def logout():
 #/homepage
 @app.route('/crudprop')
 def homepage():
-    return render_template('crudprop.html')
+    if "admin" in session:
+        return render_template('crudprop.html')
+    else:
+        return redirect(url_for('index'))    
 
 prop_list = []
 @app.route('/addproperty', methods= ['POST','GET'])
